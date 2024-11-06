@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO Chat</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="title">
+        <h2> Chat App</h2>
+        <div class="main">
+            <div class="name">
+                <input type="text" id="name-input" class="name-input " value="satyen" />
+            </div>
+
+            <ul class="message-container" id="message-container">
+
+            </ul>
+            <form id="message-form" class="message-form">
+                <input type="text" name="message" id="message-input" class="message-input" />
+                <button class="send-button" type="submit">send</button>
+            </form>
+        </div>
+        <h3 class="clients-total" id="clients-total">total client</h3>
+    </div>
+
+    <script>
+        // const socket = io();
+
+        // socket.on('receiveMessage', (message) => {
+        //     const li = document.createElement('li');
+        //     li.textContent = message;
+        //     document.getElementById('messages').appendChild(li);
+        // });
+
+        // document.getElementById('sendButton').addEventListener('click', () => {
+        //     const message = document.getElementById('messageInput').value;
+        //     if (message) {
+        //         socket.emit('sendMessage', message);
+        //         document.getElementById('messageInput').value = '';
+        //     }
+        // });
+    </script>
+    <script src="main.js"></script>
+</body>
+
+</html>

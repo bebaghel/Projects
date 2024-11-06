@@ -1,0 +1,30 @@
+ <div className="product-list">
+                    <h2>Product details</h2>
+                    <ul>
+                        <li>S. No</li>
+                        <li>Name</li>
+                        <li>Brand</li>
+                        <li>Quantity</li>
+                        <li>Price</li>
+                        <li>PurchasePrice</li>
+                        <li>Operation</li>
+                    </ul>
+                    {
+                        productDetails.length > 0 ? productDetails.map((userdetails, index) => (
+                            <ul key={userdetails._id}>
+                                <li>{index + 1}</li>
+                                <li>{userdetails.name}</li>
+                                <li>{userdetails.brand}</li>
+                                <li>{userdetails.quantity}</li>
+                                <li>{userdetails.price}</li>
+                                <li>{userdetails.purchasePrice}</li>
+                                <li>
+                                    <button onClick={() => deleteProduct(userdetails._id)} type='button'>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        ))
+                            : <h1>No Result Found</h1>
+                    }
+                </div>
