@@ -1,14 +1,13 @@
-const mongoose = require('mongoose')
+import mongoose from "mongoose";
 
-const DB = () => {
-    const url = "mongodb://127.0.0.1:27017/alpha"
+const DBConnection = async () => {
     try {
-        mongoose.connect(url)
-        console.log("Mognodb connected successfully")
+        await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+        console.log("MongoDB Connected...");
     } catch (error) {
-        console.log('Connetion failed')
+        console.error("MongoDB Connection Error:", error);
+        process.exit(1);
     }
+};
 
-}
-
-module.exports = DB;
+export default DBConnection;

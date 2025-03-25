@@ -1,64 +1,26 @@
-const express = require('express')
-
-const DBConnetion = require('./config/db')
-const path = require('path')
+import "dotenv/config"; // ✅ No need for require()
+import express from "express";
+import path from "path";
+import cors from "cors";
+import DBConnection from "./config/db.js";
+import userRoutes from "./routes/userRoutes.js"; // ✅ Add .js extension
+import authRoutes from "./routes/authRoutes.js"; // ✅ Add .js extension
+const PORT = process.env.PORT ;
 const app = express();
-DBConnetion();
-const port = 3000;
-const User = require('./model/user')
-const Post = require('./model/user')
-app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname, 'views'))
+DBConnection();
+app.set("view engine", "ejs");
+app.set("views", path.join(path.resolve(), "views")); // ✅ Use path.resolve() for ES modules
 
-// API routes
-const data = require('./routes/index')
-app.use('/', data)
+app.use(cors());
+app.use(express.json());
 
+// Routes
+app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
 
-// Create and save documents
-app.get('/post', async (req, res) => {
-    const user = new User({ name: 'saten' });
-    await user.save();
+// Serve Static Files
+app.use(express.static(path.join(path.resolve(), "public"))); // ✅ Use path.resolve()
 
-    const post = new Post({
-        title: 'My First Post',
-        content: 'This is the content of my first post.',
-        author: user._id
-    });
-    res.send("call ")
-    await post.save();
-
-    console.log('Data created');
-}
-)
-
-
-// Or
-
-// Create and save documents
-// async function createData() {
-//     const user = new User({ name: 'John Doe' });
-//     await user.save();
-
-//     const post = new Post({
-//         title: 'My First Post',
-//         content: 'This is the content of my first post.',
-//         author: user._id
-//     });
-//     await post.save();
-
-//     console.log('Data created');
-// }
-
-
-// Querying with populated references
-
-app.get('/', async (req, res) => {
-    const posts = await Post.find().populate('author');
-    console.log(posts);
-    res.send("data fetched")
-})
-
-app.listen(port, () => {
-    console.log(`Server is running on ${port}`)
-})
+app.listen(PORT, () => {
+  console.log(`Server is running on ${PORT}`);
+});
